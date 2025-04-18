@@ -1,0 +1,183 @@
+from tkinter import*
+window = Tk()
+def new():
+    win2 = Toplevel()
+    win2.geometry("400x210")
+    win2.title("gui")
+    button_one = Button(win2,text="Show info",)
+    button_one.place(x=130,y=160)
+    button_two = Button(win2,text="Quit",
+                        command=Quit)
+    button_two.place(x=260,y=160)
+    label_one = Label(win2,text="mixo \n tembisa monneng \n Alexandra \n johannesburg \n 1632",
+                 font=("ariel",12))
+    label_one.place(x=144,y=30)
+def Quit():
+    window.destroy()
+window.geometry("400x210")
+window.title("question 2")
+button_one = Button(window,text="Show info",
+                    command=new)
+button_one.place(x=130,y=160)
+button_two = Button(window,text="Quit",
+                    command=Quit)
+button_two.place(x=260,y=160)
+window.mainloop()
+
+
+
+
+from tkinter import *
+
+def calculate_average():
+    score1 = int(entry1.get())
+    score2 = int(entry2.get())
+    score3 = int(entry3.get())
+    average = (score1 + score2 + score3) / 3
+    label_average.config(text="Average: {:.2f}".format(average))
+
+def quit_program():
+    window.destroy()
+
+window = Tk()
+window.title("Test Score Average Calculator")
+window.geometry("500x240")
+
+Label(window, text="Enter the score for Test 1:", font=("Arial", 20)).grid(row=0, column=0)
+Label(window, text="Enter the score for Test 2:", font=("Arial", 20)).grid(row=1, column=0)
+Label(window, text="Enter the score for Test 3:", font=("Arial", 20)).grid(row=2, column=0)
+
+entry1 = Entry(window)
+entry1.grid(row=0, column=1)
+
+entry2 = Entry(window)
+entry2.grid(row=1, column=1)
+
+entry3 = Entry(window)
+entry3.grid(row=2, column=1)
+
+label_average = Label(window, text="Average:", font=("Arial", 20))
+label_average.grid(row=3, column=0, columnspan=2)
+
+Button(window, text="Calculate Average", command=calculate_average, font=("Arial")).place(x=130, y=160)
+Button(window, text="Quit", command=quit_program, font=("Arial")).place(x=320,y=160)
+
+window.mainloop()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import sqlite3
+def main():
+    conn = sqlite3.connect("cities.db")
+    cur = conn.cursor()
+    cur.execute('''CREATE TABLE  cities(CityName TEXT,
+                            CityID INTERGER,
+                        Population REAL)''')
+    cur.execute('''INSERT INTO cities(CityName,CityID,Population) VALUES("soweto",1,90''')
+    cur.execute('''INSERT INTO cities(CityName,CityID,Population) VALUES("#",2,insert number)''')
+    cur.execute('''INSERT INTO cities(CityName,CityID,Population) VALUES("#",3,insert number)''')
+    cur.execute('''INSERT INTO cities(CityName,CityID,Population) VALUES("#",4,insert number)''')
+    conn.commit()
+    conn.close()
+main()
+
+
+	
+
+import sqlite3
+
+conn = sqlite3.connect('cities.db')
+cur = conn.cursor()
+
+def display_sorted_by_population(ascending=True):
+ 
+    order = "ASC" if ascending else "DESC" 
+ 
+    cur.execute(f"SELECT CityName, Population FROM Cities ORDER BY Population {order}")
+
+    cities = cur.fetchall()
+  
+    for city in cities:
+        print(f"{city[0]} - Population: {city[1]}")
+
+def display_sorted_by_name():
+    cur.execute("SELECT CityName, Population FROM Cities ORDER BY CityName")
+    cities = cur.fetchall()
+    print("Cities sorted by name:")
+    for city in cities:
+        print(f"{city[0]} - Population: {city[1]}")
+
+def display_total_population():
+    cur.execute("SELECT SUM(Population) FROM Cities")
+    total_population = cur.fetchone()[0]
+    print(f"Total population of all cities: {total_population}")
+
+def display_average_population():
+    cur.execute("SELECT AVG(Population) FROM Cities")
+    average_population = cur.fetchone()[0]
+    print(f"Average population of all cities: {average_population:.2f}")
+
+def display_highest_population():
+    cur.execute("SELECT CityName, Population FROM Cities ORDER BY Population DESC LIMIT 1")
+    city = cur.fetchone()
+    print(f"City with the highest population: {city[0]} - Population: {city[1]}")
+
+def display_lowest_population():
+    cur.execute("SELECT CityName, Population FROM Cities ORDER BY Population ASC LIMIT 1")
+    city = cur.fetchone()
+    print(f"City with the lowest population: {city[0]} - Population: {city[1]}")
+def display_option(): 
+    print("\nSelect an operation:")
+    print("1. Display cities sorted by population (ascending)")
+    print("2. Display cities sorted by population (descending)")
+    print("3. Display cities sorted by name")
+    print("4. Display total population")
+    print("5. Display average population")
+    print("6. Display city with the highest population")
+    print("7. Display city with the lowest population")
+    print("8. Exit")
+    
+
+while True:
+    display_option()
+  
+    
+    try:
+        choice = int(input("Enter your choice (1-8): "))
+    except ValueError:
+        print("Invalid input. Please enter a valid number.")
+        continue
+
+    if choice == 1:
+        display_sorted_by_population(ascending=True)
+    elif choice == 2:
+        display_sorted_by_population(ascending=False)
+    elif choice == 3:
+        display_sorted_by_name()
+    elif choice == 4:
+        display_total_population()
+    elif choice == 5:
+        display_average_population()
+    elif choice == 6:
+        display_highest_population()
+    elif choice == 7:
+        display_lowest_population()
+    elif choice == 8:
+        break
+    else:
+        print("Invalid choice. Please enter a valid option.")
+
+conn.close()
+
+
