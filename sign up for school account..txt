@@ -1,0 +1,155 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>form validation</title>
+</head>
+<style>
+body{
+  background: white;
+  font-family: 'poppins', sans-serif;
+}
+#form{
+  width:300px;
+  margin: 20vh auto 0 auto;
+  padding:20px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius:2%;
+  box-shadow:6px 6px 6px gray;
+  font-size: 12px;
+}
+#form h3{
+  color: black;
+}
+input[type="button"]{
+  width:45%;
+  margin-left:auto;
+  cursor: pointer;
+  
+}
+</style>
+<body>
+<div class="box"">
+  <form id="form">
+  <h3>Sign up for school account</h3>
+   <div style="display: flex;flex-direction: column;">
+     <label for="Name">Name</label>
+     <input type="text" id="Names" style="width:35%" ><span><label id="error" style="color: red;visibility: hidden;"></span>
+    <label for="email">Email</label>
+     <input type="text" id="email" style="width:35%">
+     
+      <label for="Retype email">Retype email</label>
+     <input type="text" id="REmail" style="width:35%"><span><label id="err" style="color: red;visibility: hidden;"></span> 
+      <label for="password">Create a password</label>
+     <input type="password" id="password" style="width:35%">
+      <label for="Retype password" >Retype password</label>
+     <input type="password" id="REpassword" style="width:35%"><span><label id="color2" style="color: red;visibility: hidden;"></label></span>
+     <div>
+     <input type="checkbox" id="checkbtn"><span>By signing up for this account you are agree to our<a href="/" style="color:red;">Terms of service</a>and<a href="/" style="color:red;">Privacy and policy</a></span>  
+   </div>
+     <input type="button" value="Set up your Acoount" id="submit">
+   </div>
+  </form>
+</div>
+<script>
+   var btn = document.getElementById('submit')
+  function username(){
+    let Name = document.getElementById('Names');
+    if (Name.value.trim() == ""){
+      document.getElementById('error').style.visibility = "visible";
+      document.getElementById('error').innerHTML = "Name is required"
+      document.getElementById('Names').style.border = "1px solid red";
+    }
+    else{
+      Name.style.border = "1px solid #00ff00"
+    }
+  }
+ function email() {
+      var email = document.getElementById('email').value;
+      var reEmail = document.getElementById('REmail').value;
+
+      if (email.trim() === "") {
+        document.getElementById('err').style.visibility = "visible";
+        document.getElementById('err').innerHTML = "Email is required";
+        document.getElementById('email').style.border = "1px solid red";
+      } else if (!isValidEmail(email)) {
+        document.getElementById('err').style.visibility = "visible";
+        document.getElementById('err').innerHTML = "Invalid email format";
+        document.getElementById('email').style.border = "1px solid red";
+      } else {
+        document.getElementById('err').style.visibility = "hidden";
+        document.getElementById('email').style.border = "1px solid #00ff00";
+      }
+
+      if (reEmail.trim() === "") {
+        document.getElementById('err2').style.visibility = "visible";
+        document.getElementById('err2').innerHTML = "Retype email is required";
+        document.getElementById('REmail').style.border = "1px solid red";
+      } else if (email !== reEmail) {
+        document.getElementById('err2').style.visibility = "visible";
+        document.getElementById('err2').innerHTML = "Emails don't match";
+        document.getElementById('REmail').style.border = "1px solid red";
+      } else {
+        document.getElementById('err2').style.visibility = "hidden";
+        document.getElementById('REmail').style.border = "1px solid #00ff00";
+      }
+    }
+
+    function isValidEmail(email) {
+      var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return regex.test(email);
+    }
+ 
+     function password() {
+      var password = document.getElementById('password').value;
+      var rePassword = document.getElementById('REpassword').value;
+
+      if (password.trim() === "") {
+        document.getElementById('color2').style.visibility = "visible";
+        document.getElementById('color2').innerHTML = "Password is required";
+        document.getElementById('password').style.border = "1px solid red";
+      } else if (password.length < 8) {
+        document.getElementById('color2').style.visibility = "visible";
+        document.getElementById('color2').innerHTML = "Password should be at least 8 characters";
+        document.getElementById('password').style.border = "1px solid red";
+      } else {
+        document.getElementById('color2').style.visibility = "hidden";
+        document.getElementById('password').style.border = "1px solid #00ff00";
+      }
+
+      if (rePassword.trim() === "") {
+        document.getElementById('color2').style.visibility = "visible";
+        document.getElementById('color2').innerHTML = "Retype password is required";
+        document.getElementById('REpassword').style.border = "1px solid red";
+      } else if (password !== rePassword) {
+        document.getElementById('color2').style.visibility = "visible";
+        document.getElementById('color2').innerHTML = "Passwords don't match";
+        document.getElementById('REpassword').style.border = "1px solid red";
+      } else {
+        document.getElementById('color2').style.visibility = "hidden";
+        document.getElementById('REpassword').style.border = "1px solid #00ff00";
+      }
+    }
+ function validateCheckbox() {
+      var checkbox = document.getElementById('checkbtn');
+      
+      if (!checkbox.checked) {
+        alert("Please check the Terms and Policy checkbox.");
+      }
+    }
+
+  btn.onclick = function(){
+    username();
+    password();
+    email();
+    validateCheckbox();
+    
+  }
+  
+</script>
+
+</body>
+
+</html>
